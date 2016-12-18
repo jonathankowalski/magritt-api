@@ -1,0 +1,19 @@
+{
+    "name": "rembrand/api",
+    "description": "api for rembrand.io",
+    "minimum-stability": "dev",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jonathan Kowalski",
+            "email": "jonathankowalski@ymail.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^6.2"
+    },
+    "autoload": {
+        "psr-4":{"Rembrand\\":"src"}
+    }
+
+}

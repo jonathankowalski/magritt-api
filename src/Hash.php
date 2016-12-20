@@ -1,6 +1,6 @@
 <?php
 
-namespace Rembrand;
+namespace Magritt;
 
 
 class Hash

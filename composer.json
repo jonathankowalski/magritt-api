@@ -13,7 +13,7 @@
         "guzzlehttp/guzzle": "^6.2"
     },
     "autoload": {
-        "psr-4":{"Rembrand\\":"src"}
+        "psr-4":{"Magritt\\":"src"}
     }
 
 }

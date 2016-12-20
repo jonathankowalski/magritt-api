@@ -1,12 +1,12 @@
 <?php
 
-namespace Rembrand;
+namespace Magritt;
 
 use GuzzleHttp\Client;
 
 class Api
 {
-    const REMBRAND = 'https://rembrand.io';
+    const MAGRITT = 'https://magritt.io';
 
     protected $apikey;
     protected $secret;
@@ -17,12 +17,41 @@ class Api
         $this->secret = $secret;
     }
 
-    public function optimize($url)
+    public function optimize($pathOrUrl)
+    {
+        if (!filter_var($pathOrUrl, FILTER_VALIDATE_URL) === false) {
+            return $this->optimizeUrl($pathOrUrl);
+        } else if(file_exists($pathOrUrl)) {
+            return $this->optimizeFile($pathOrUrl);
+        }
+        throw new \InvalidArgumentException("$pathOrUrl is not an url but is not a file");
+    }
+
+    public function optimizeUrl($url)
     {
         $http = new Client();
         $data = $this->getData(['url'=>$url]);
-        $res = $http->request('POST', self::REMBRAND.'/optimize',[
+        $res = $http->request('POST', self::MAGRITT.'/optimize',[
            'form_params' => ["data"=>json_encode($data)]
+        ]);
+        return (string) $res->getBody();
+    }
+
+    public function optimizeFile($path)
+    {
+        $http = new Client();
+        $data = $this->getData([basename($path)]);
+        $res = $http->request('POST', self::MAGRITT.'/optimize',[
+            'multipart' => [
+                [
+                    'name' => 'data',
+                    'contents' => json_encode($data)
+                ],
+                [
+                    'name' => 'upload',
+                    'contents' => fopen($path, 'r')
+                ]
+            ]
         ]);
         return (string) $res->getBody();
     }

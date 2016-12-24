@@ -1,6 +1,6 @@
 {
-    "name": "rembrand/api",
-    "description": "api for rembrand.io",
+    "name": "magritt/api",
+    "description": "api for magritt.io",
     "minimum-stability": "dev",
     "license": "MIT",
     "authors": [

@@ -31,7 +31,7 @@ class Api
     {
         $http = new Client();
         $data = $this->getData(['url'=>$url]);
-        $res = $http->request('POST', self::MAGRITT.'/optimize',[
+        $res = $this->requestOptimize($http, [
            'form_params' => ["data"=>json_encode($data)]
         ]);
         return (string) $res->getBody();
@@ -41,7 +41,7 @@ class Api
     {
         $http = new Client();
         $data = $this->getData([basename($path)]);
-        $res = $http->request('POST', self::MAGRITT.'/optimize',[
+        $res = $this->requestOptimize($http, [
             'multipart' => [
                 [
                     'name' => 'data',
@@ -54,6 +54,17 @@ class Api
             ]
         ]);
         return (string) $res->getBody();
+    }
+
+    protected function requestOptimize(Client$http, $data)
+    {
+        try {
+            $res = $http->request('POST', self::MAGRITT.'/optimize', $data);
+            return $res;
+        } catch(\Exception $e) {
+            echo $e->getResponse()->getBody(true);
+            exit();
+        }
     }
 
     protected function getData($data)

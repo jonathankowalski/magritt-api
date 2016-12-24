@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 
 class Api
 {
-    const MAGRITT = 'https://magritt.io';
+    const MAGRITT = 'https://api.magritt.io';
 
     protected $apikey;
     protected $secret;
@@ -24,7 +24,7 @@ class Api
         } else if(file_exists($pathOrUrl)) {
             return $this->optimizeFile($pathOrUrl);
         }
-        throw new \InvalidArgumentException("$pathOrUrl is not an url but is not a file");
+        throw new \InvalidArgumentException("$pathOrUrl is not an url nor a file");
     }
 
     public function optimizeUrl($url)
